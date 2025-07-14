@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>REGifiy AI Chatbot</title>
+   <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  
+  <!-- Sidebar -->
+  <nav id="sidebar" aria-label="Sidebar Navigation">
+    <button id="closeSidebarBtn" aria-label="Close Sidebar">&times;</button>
+    <h2>Menu</h2>
+    <button id="sidebarLoginBtn">Login</button>
+    <button id="sidebarSignupBtn">Sign Up</button>
+  </nav>
+  <div id="overlay" tabindex="-1" aria-hidden="true"></div>
+
+  <div id="container" role="main" aria-label="REGifiy AI Chatbot Interface">
+    <header>
+      <button id="openSidebarBtn" aria-label="Open Menu" aria-expanded="false">&#9776;</button>
+      <h1>REGifiy AI</h1>
+      <div style="width:44px;"></div>
+    </header>
+
+    <section id="chatMessages" aria-live="polite" role="log" aria-relevant="additions" aria-atomic="false"></section>
+    <form id="inputArea" role="form" aria-label="Chat input area" autocomplete="off">
+      <input type="text" id="inputText" name="text" aria-label="Type your message here" placeholder="Type your message" autocomplete="off" required />
+      <button type="button" id="btnVoice" aria-label="Start voice input" title="Start voice input" tabindex="0">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="20" height="20" fill="white">
+          <path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5.002 5.002 0 0 1-4 4.9V19h3v2H8v-2h3v-3.1A5.002 5.002 0 0 1 7 11H5a7 7 0 0 0 14 0z" />
+        </svg>
+      </button>
+      <button type="submit" id="btnSend" aria-label="Send message" title="Send message">Send</button>
+    </form>
+  </div>
+
+  <!-- Auth Panel (Login/Signup) -->
+  <aside id="authPanel" role="dialog" aria-modal="true" aria-labelledby="authTitle" tabindex="-1">
+    <button id="authCloseBtn" aria-label="Close authentication panel">&times;</button>
+    <h2 id="authTitle">Login</h2>
+    <form id="authForm" autocomplete="off">
+      <div id="inputUsernameDiv">
+        <label for="authUsername">Username</label>
+        <input type="text" id="authUsername" name="username" autocomplete="username" required />
+      </div>
+      <div id="inputEmailDiv" style="display:none;">
+        <label for="authEmail">Email</label>
+        <input type="email" id="authEmail" name="email" autocomplete="email" />
+      </div>
+      <label for="authPassword">Password</label>
+      <input type="password" id="authPassword" name="password" autocomplete="current-password" required minlength="6" />
+      <label for="authPasswordConfirm" id="labelPasswordConfirm" style="display:none;">Confirm Password</label>
+      <input type="password" id="authPasswordConfirm" name="passwordConfirm" autocomplete="new-password" minlength="6" style="display:none;" />
+      <button type="submit" id="authSubmitBtn">Login</button>
+    </form>
+    <div id="authSwitch">
+      <span id="authSwitchText">Don't have an account?</span>
+      <button type="button" id="switchToSignupBtn">Sign Up</button>
+      <button type="button" id="switchToLoginBtn" style="display:none;">Login</button>
+    </div>
+  </aside>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
+

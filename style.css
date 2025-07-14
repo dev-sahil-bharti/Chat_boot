@@ -1,0 +1,412 @@
+/* Reset and base */
+    * {
+      box-sizing: border-box;
+    }
+
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1e1e2f;
+      color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      user-select: none;
+    }
+
+    #container {
+      width: 100%;
+      max-width: 900px;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: #28283d;
+      border-radius: 15px;
+      box-shadow: 0 0 40px #667eea88;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Sidebar sliding panel (left) */
+    #sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100vh;
+      background-color: #2e2e4f;
+      box-shadow: 2px 0 12px rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      transition: left 0.4s ease;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #sidebar.open {
+      left: 0;
+    }
+
+    #sidebar h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 1.6rem;
+      color: #dde;
+      user-select: text;
+    }
+
+    #closeSidebarBtn {
+      background: transparent;
+      border: none;
+      color: #bbb;
+      font-size: 28px;
+      cursor: pointer;
+      align-self: flex-end;
+      margin-bottom: 15px;
+      user-select: none;
+      transition: color 0.3s ease;
+    }
+
+    #closeSidebarBtn:hover,
+    #closeSidebarBtn:focus {
+      color: #eef;
+      outline: none;
+    }
+
+    #sidebar button {
+      margin: 8px 0;
+      background-color: #667eea;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.25s ease;
+      user-select: none;
+    }
+
+    #sidebar button:hover,
+    #sidebar button:focus {
+      background-color: #5366d6;
+      outline: none;
+    }
+
+    /* Overlay behind sidebar */
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease;
+      z-index: 9999;
+      user-select: none;
+    }
+
+    #overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Main chatbot area */
+    #chat-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Header with open slider & title */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-right: 0px;
+    }
+
+    #openSidebarBtn {
+      background: transparent;
+      border: none;
+      color: #667eea;
+      font-size: 28px;
+      cursor: pointer;
+      user-select: none;
+      padding: 4px 18px;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    #openSidebarBtn:hover,
+    #openSidebarBtn:focus {
+      background-color: #4456aa44;
+      outline: none;
+    }
+
+    header h1 {
+      margin: 0;
+      font-weight: 700;
+      color: #667eea;
+      user-select: text;
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      flex: 1;
+      text-align: center;
+    }
+
+    /* Chat messages list */
+    #chatMessages {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 10px;
+      scrollbar-width: thin;
+      scrollbar-color: #667eea transparent;
+      user-select: text;
+    }
+
+    #chatMessages::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    #chatMessages::-webkit-scrollbar-thumb {
+      background-color: #667eea;
+      border-radius: 12px;
+    }
+
+    /* Single message wrapper */
+    .message-row {
+      display: flex;
+      margin-bottom: 12px;
+      max-width: 80%;
+      word-wrap: break-word;
+    }
+
+    /* AI messages (left side) */
+    .ai-message {
+      justify-content: flex-start;
+    }
+
+    .ai-message .message-content {
+      background: #4961cc;
+      color: #fff;
+      border-radius: 16px 16px 16px 4px;
+      padding: 12px 16px;
+      font-size: 1rem;
+      user-select: text;
+      box-shadow: 0 4px 8px #3952a0;
+    }
+
+    /* User messages (right side) */
+    .user-message {
+      justify-content: flex-end;
+    }
+
+    .user-message .message-content {
+      background: #667eea;
+      color: white;
+      border-radius: 16px 16px 4px 16px;
+      padding: 12px 16px;
+      font-size: 1rem;
+      user-select: text;
+      box-shadow: 0 4px 8px #4354b2;
+    }
+
+    /* Input area */
+    #inputArea {
+      display: flex;
+      padding-top: 12px;
+      gap: 10px;
+      align-items: center;
+    }
+
+    #inputText {
+      flex: 1;
+      font-size: 1rem;
+      padding: 18px 100px;
+      border-radius: 24px;
+      border: none;
+      outline: none;
+      background: #3c3c5c;
+      color: #eee;
+      user-select: auto;
+      transition: background-color 0.3s ease;
+    }
+
+    #inputText::placeholder {
+      color: #9696c7;
+      font-style: italic;
+    }
+
+    #inputText:focus {
+      background-color: #4a4a7a;
+    }
+
+    button#btnSend,
+    button#btnVoice {
+      background-color: #667eea;
+      border: none;
+      color: white;
+      font-weight: 700;
+      padding: 0 14px;
+      height: 42px;
+      border-radius: 24px;
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    button#btnSend:hover,
+    button#btnSend:focus,
+    button#btnVoice:hover,
+    button#btnVoice:focus {
+      background-color: #5366d6;
+      outline: none;
+    }
+
+    button#btnVoice svg {
+      fill: white;
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Login / Signup panel */
+    #authPanel {
+      position: fixed;
+      top: 0;
+      right: -360px;
+      width: 360px;
+      height: 100vh;
+      background-color: #2e2e4f;
+      box-shadow: -4px 0 15px rgba(0, 0, 0, 0.8);
+      padding: 30px 24px;
+      transition: right 0.4s ease;
+      z-index: 12000;
+      display: flex;
+      flex-direction: column;
+      color: #eee;
+      user-select: text;
+    }
+
+    #authPanel.open {
+      right: 0;
+    }
+
+    #authCloseBtn {
+      background: none;
+      border: none;
+      color: #bbb;
+      font-size: 30px;
+      cursor: pointer;
+      align-self: flex-end;
+      margin-bottom: 20px;
+      user-select: none;
+      transition: color 0.3s ease;
+    }
+
+    #authCloseBtn:hover,
+    #authCloseBtn:focus {
+      color: #eef;
+      outline: none;
+    }
+
+    #authPanel h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: #dde;
+    }
+
+    #authPanel label {
+      margin-bottom: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #ccc;
+      display: block;
+    }
+
+    #authPanel input {
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      border-radius: 12px;
+      border: none;
+      background-color: #454576;
+      color: #eee;
+      font-size: 1rem;
+      outline: none;
+      width: 100%;
+      transition: background-color 0.3s ease;
+      user-select: text;
+    }
+
+    #authPanel input:focus {
+      background-color: #5c5ccf;
+      color: white;
+    }
+
+    #authPanel button {
+      background-color: #667eea;
+      border: none;
+      color: white;
+      padding: 14px 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 28px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
+      width: 100%;
+    }
+
+    #authPanel button:hover,
+    #authPanel button:focus {
+      background-color: #5366d6;
+      outline: none;
+    }
+
+    #authSwitch {
+      margin-top: 14px;
+      font-size: 0.9rem;
+      text-align: center;
+      color: #ccc;
+      user-select: none;
+    }
+
+    #authSwitch button {
+      background: none;
+      border: none;
+      color: #667eea;
+      cursor: pointer;
+      font-weight: 600;
+      text-decoration: underline;
+      padding: 0 6px;
+      user-select: none;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 600px) {
+      #container {
+        width: 95vw;
+      }
+      #authPanel {
+        width: 100vw;
+      }
+      header h1 {
+        font-size: 1.4rem;
+      }
+    }

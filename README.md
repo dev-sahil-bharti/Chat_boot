@@ -1,2 +1,2 @@
 # Chat_boot
-create a chat boot - using the technology HTML, CSS and JavaScript on crate a frontend project  
+create a chat boot - using the technology HTML, CSS and JavaScript. 
